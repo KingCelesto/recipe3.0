@@ -11,7 +11,7 @@ if(isset($_POST['submit'])) {
     $email = $_POST['email'];
     $recipe_name = $_POST['recipe_name'];
     $recipe_type = $_POST['recipe_type'];
-    $recipe_description = $_POST['$recipe_description'];
+    $recipe_description = $_POST['recipe_description'];
 
   // Write Insert Query
     $save_query = "INSERT INTO `recipe_tb`(`email`, `recipe_name`, `recipe_type`, `recipe_description`) VALUES ('$email','$recipe_name','$recipe_type','$recipe_description')";
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
 
 ?>
 
-  <div class="container">
+<div class="container">
     <h1 class="center-align">Add a Recipe</h1>
     <div class="container">
         <form action="new_recipe.php" method="POST">
@@ -63,7 +63,7 @@ if(isset($_POST['submit'])) {
             </div>
         </form>
     </div>
-    </div>
+</div>
 
 
 

@@ -39,8 +39,8 @@ if (isset($_GET['recipe_id'])) {
             <p class="flow-text"><span class="red-text text-darken-4">Description: </span><?php echo $recipe['recipe_description'] ?></p>
         </div>
         <div class="center-align">
-            <a href="./edit_recipe.php" class="btn btn-large btn-flat red darken-4 white-text">Edit</a>
-            <a href="./delete_recipe.php" class="btn btn-large btn-flat red darken-4 white-text">Delete</a>
+            <a href="./edit_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="btn btn-large btn-flat red darken-4 white-text">Edit</a>
+            <a href="./delete_recipe.php?recipe_id=<?php echo $recipe['recipe_id']; ?>" class="btn btn-large btn-flat red darken-4 white-text">Delete</a>
         </div>
     </div>
 </main>
