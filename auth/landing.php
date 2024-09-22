@@ -1,13 +1,7 @@
 <?php 
     include('../templates/connect.php');
 
-    $fetch_query = "SELECT * FROM user_tb WHERE 1";
-
-    //Send the Query to the server
-    $send_fetch_query = mysqli_query($db_con, $fetch_query);
-
-    //Recieve data from server
-    $user = mysqli_fetch_all($send_fetch_query, MYSQLI_ASSOC);
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +27,7 @@
     </header>
     <main>
         <div class="section container">
-            <h1>Welcome, <?php echo $user['username']; ?></h1>
+            <h1 class="center">Welcome, <?php echo $_SESSION['username']; ?></h1>
         </div>
     </main>
 <?php include('../templates/footer.php') ?>

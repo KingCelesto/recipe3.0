@@ -1,34 +1,30 @@
 <?php 
     include('../templates/connect.php');
-    //Create blank variables
-    $user_id = '';
-    $error_msg = '';
 
-    //check if a particular recipe id is selected
-    if (isset($_GET['user_id'])) {
-        //Assign recipe_id to local variable
-        $user_id = $_GET['user_id'];
+    $username="";
+    $password="";
+    $error_msg="";
 
-        //Fetch data from table, using the row ID
-        $fetch_query = "SELECT * FROM `user_tb` WHERE `user_id` = '$user_id' ";
+    if (isset($_POST['login'])) {
+        $username= $_POST['username'];
+        $password= $_POST['password'];
 
-        //Send query to server
-        $send_fetch_query = mysqli_query($db_con, $fetch_query);
+        $fetch_query = "SELECT * FROM `user_tb` WHERE `username` = '$username'";
+        $get_fetch_query = mysqli_query( $db_con, $fetch_query);
 
-        //Store received data in an associative array
-        $user = mysqli_fetch_assoc($send_fetch_query);
-
-        //print_r($recipe);
-    } else {
-        $error_msg= "No Such Account" ;
+        if (mysqli_num_rows($get_fetch_query)>0){
+            $login_details = mysqli_fetch_assoc($get_fetch_query);
+            // 
+            if ($login_details['password'] === $password) {
+                    header('Location: ./landing.php');
+                } else {
+                    $error_msg= "incorrect password";
+                }
+        } else {
+            $error_msg= "incorrect details" ;
+        }
+    
     }
-    if($_GET){
-        header('Location: landing.php');
-    } else {
-        echo 'could not save' . mysqli_error($db_con);
-    }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +53,7 @@
             <div class="container">
                 <h1 class="center">Log-in</h1>
                 <div class="row">
+                    <span class="red-text"><?php echo $error_msg; ?></span>
                     <form action="login.php" method="post">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
@@ -69,11 +66,12 @@
                             <label for="password">Password</label>
                         </div>
                         <div class="col s12 center-align">
-                            <input type="submit" value="submit" name="submit" class="btn btn-large orange darken-4">
+                            <input type="submit" value="login" name="login" class="btn btn-large orange darken-4">
                         </div>
                     </form>
-                    <h1 class="center">Don't have an account? <a>Signup</a> here </h1>
+                    <br><br>
                 </div>
+                <h6 class="center">Don't have an account? <a href="signup.php">Signup</a> here </h6>
             </div>
         </div>
     </main>

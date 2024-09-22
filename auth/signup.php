@@ -1,26 +1,39 @@
 <?php 
     include('../templates/connect.php');
     
+    $error_msg = "";
     if(isset($_POST['submit'])) {
-        // Store form data
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $user_type = $_POST['user_type'];
-    
-    // Write Insert Query
-        $save_query = "INSERT INTO `user_tb`(`username`, `password`, `user_type`, `email`) VALUES ('$username', '$password', '$user_type', '$email')";
-    
-        //Send query to server
-        $send_save_query = mysqli_query($db_con, $save_query);
-    
-        //Check if data is aved successfully
-    if($send_save_query){
-            header('Location: login.php');
-        } else {
-            echo 'could not save' . mysqli_error($db_con);
+        if ($login_details[$username] === $username) {
+            echo $error_msg = "Username already exists";
+        } else{
+            if ($_POST['password'] === $_POST['confirm_password']) {
+                // Store form data
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $confirm_password = $_POST['confirm_password'];
+                $first_name = $_POST['first_name'];
+                $last_name = $_POST['last_name'];
+        
+                // Write Insert Query
+                $save_query = "INSERT INTO `user_tb`(`username`, `email`, `password`, `first_name`, `last_name` )  VALUES ('$username', '$email', '$password', '$first_name', '$last_name')";
+        
+                //Send query to server
+                $send_save_query = mysqli_query($db_con, $save_query);
+        
+                //Check if data is aved successfully
+                if($send_save_query){
+                    session_start();
+                    $_SESSION['username']= $username;
+                    header('Location: landing.php');
+                } else {
+                    echo 'could not save' . mysqli_error($db_con);
+                }
+        
+                } else{
+                    $error_msg = "password does not match";
+                }
         }
-    
     }
 ?>
 <!DOCTYPE html>
@@ -47,9 +60,9 @@
     </header>
     <main class="section container">
         <div class="container">
-            <div class="container">
                 <h1 class="center">Sign-up</h1>
                 <div class="row">
+                    <span class="red-text"><?php echo $error_msg ?></span>
                     <form action="signup.php" method="post">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
@@ -62,13 +75,13 @@
                             <label for="password">Email</label>
                         </div>
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">mail</i>
+                            <!-- <i class="material-icons prefix">mail</i> -->
                             <input type="text" name="first_name" id="first_name">
                             <label for="password">First Name</label>
                         </div>
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">mail</i>
-                            <input type="email" name="email" id="email">
+                            <!-- <i class="material-icons prefix">mail</i> -->
+                            <input type="text" name="last_name" id="lastt_name">
                             <label for="password">Last Name</label>
                         </div>
                         <div class="input-field col s6">
@@ -79,14 +92,13 @@
                         <div class="input-field col s6">
                             <i class="material-icons prefix">lock</i>
                             <input type="password" name="confirm_password" id="confirm_password">
-                            <label for="confirm_password">Confirm_password</label>
+                            <label for="confirm_password">Confirm Password</label>
                         </div>
                         <div class="col s12 center-align">
                             <input class="btn btn-large orange darken-4" type="submit" name="submit" id="submit">
                         </div>
                     </form>
                 </div>
-            </div>
         </div>
     </main>
     <script src="../assets/js/jquery.js"></script>
