@@ -131,6 +131,44 @@ $recipes = mysqli_fetch_all($send_fetch_query, MYSQLI_ASSOC);
         <div class="divider"></div>
     </div>
 </main>
+<footer class="page-footer">
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h3>About Us</h3>
+            <p>We are a leading online retailer offering the best products at unbeatable prices. Shop with confidence and convenience!</p>
+        </div>
+
+        <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section contact">
+            <h3>Contact Us</h3>
+            <p>Email: support@example.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Address: 123 E-commerce St, Shop City, SC</p>
+        </div>
+
+        <div class="footer-section social">
+            <h3>Follow Us</h3>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2024 Your E-commerce Site | All Rights Reserved
+    </div>
+</footer>
 
 <?php
     include("./templates/footer.php");
